@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark
+  template:
+    metadata:
+      labels:
+        app: spark
+    spec:
+      containers:
+        - name: spark-worker
+          image: alaasalmo/spark-worker:0.1.0
+          resources:
+            requests:
+              memory: "1Gi"   # Minimum memory the pod requests
+              cpu: "1"        # Minimum CPU the pod requests
+            limits:
+              memory: "1Gi"   # Maximum memory the pod can use
+              cpu: "1"        # Maximum CPU the pod can use
+          ports:
+            - containerPort: 7077
+            - containerPort: 8081

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-edgenode
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edgenode
+  template:
+    metadata:
+      labels:
+        app: edgenode
+    spec:
+      containers:
+        - name: edgenode
+          image: alaasalmo/spark-edgenode:2.0
+          ports:
+            - containerPort: 4040
+            - containerPort: 7077
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              while true; do sleep 30; done;
